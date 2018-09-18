@@ -3,8 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Execution productd
+# Ray caster execution products
 *.png
+
+# 2to3 backups
+*.bak
 
 # C extensions
 *.so

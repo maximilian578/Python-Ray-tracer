@@ -31,8 +31,8 @@ scene = Scene([
 	Plane(Point3(0.8,0.0,0.5), Vector3( 1,.3,0), MATT_CUBE),
 	Plane(Point3(0.5,0.0,0.8), Vector3(0,.3, 1), MATT_CUBE),
 	Plane(Point3(0.5,0.0,0.2), Vector3(0,.3,-1), MATT_CUBE)]),
-    Plane(Point3(0.5,0.0,0.0), Vector3(0,1,0) MATT_PLANE),
-    Plane(Point3(0.5,0.0,-1), Vector3(0,0,1) MATT_PLANE),
+    Plane(Point3(0.5,0.0,0.0), Vector3(0,1,0), MATT_PLANE),
+    Plane(Point3(0.5,0.0,-1), Vector3(0,0,1), MATT_PLANE),
 ])
  
 scene.lights = [

@@ -1,3 +1,4 @@
+from builtins import object
 class Texture_Check(object):
     def __init__(self, size, c1, c2):
 	self.colour1 = c1

@@ -4,6 +4,7 @@ value (distance along the ray) at the first hit, plus
 the object hit, in a pair. Written for COSC363.
 @author Richard Lobb, June 22, 2009."""
 
+from builtins import object
 from hit import BlankHit
 
 class Scene(object):

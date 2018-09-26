@@ -1,3 +1,4 @@
+from builtins import object
 from geom3 import Vector3, Point3, Ray3, dot, unit
 from hit import Hit
 

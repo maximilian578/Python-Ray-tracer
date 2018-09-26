@@ -5,7 +5,10 @@
    plane and a normal method that returns the normal
    at a given point (which is irrelevant for a plane
    as the normal is the same everywhere)."""
+from __future__ import division
 
+from builtins import object
+from past.utils import old_div
 from geom3 import Vector3, Point3, Ray3, dot, unit
 from math import sqrt
 from hit import Hit
@@ -27,7 +30,7 @@ class Plane(object):
 	hit = None
 	angle = ray.dir.dot(self.norm)
 	if angle != 0:
-	    t = (self.point - ray.start).dot(self.norm)/angle
+	    t = old_div((self.point - ray.start).dot(self.norm),angle)
 	    if angle < 0:
 	        hit = Hit(self, ray, t, (), self.norm, self.mat)
 	    else :

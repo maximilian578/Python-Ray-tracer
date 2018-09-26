@@ -1,4 +1,5 @@
 #from colour import Colour
+from builtins import object
 from geom3 import *
 import math
 

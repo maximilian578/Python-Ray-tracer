@@ -1,3 +1,7 @@
+from __future__ import division
+from builtins import range
+from builtins import object
+from past.utils import old_div
 from geom3 import Point3, Vector3, Ray3, cross, dot, unit, length
 from colour import Colour
 from math import sqrt
@@ -10,7 +14,7 @@ class NoAA(object):
 	
     def getPixel(self, pixelBox):
 	(x, y, x2, y2) = pixelBox
-    	pixelCentre = Point3((x + x2)/2, (y2 + y)/2, 1)
+    	pixelCentre = Point3(old_div((x + x2),2), old_div((y2 + y),2), 1)
 	ray = Ray3(self.eye, pixelCentre - self.eye)
 	return self.rayfunc(ray)
 
@@ -22,7 +26,7 @@ class SuperSampling(object):
 
     def getPixel(self, pixelBox):
 	(x, y, x2, y2) = pixelBox
-	pitch = (x2 - x)/ (self.subPixels * 2)
+	pitch = old_div((x2 - x), (self.subPixels * 2))
 	xx = x
 	yy = y
 	count = 0
@@ -35,7 +39,7 @@ class SuperSampling(object):
 	    yy = y
 	    xx += pitch * 2
 	assert count == self.subPixels * self.subPixels
-	return colour / count
+	return old_div(colour, count)
 
 
 class Jitter(object):
@@ -46,7 +50,7 @@ class Jitter(object):
 
     def getPixel(self, pixelBox):
 	(x, y, x2, y2) = pixelBox
-	pitch = (x2 - x)/ self.subPixels
+	pitch = old_div((x2 - x), self.subPixels)
 	xx = x
 	yy = y
 	count = 0
@@ -59,7 +63,7 @@ class Jitter(object):
 	    yy = y
 	    xx += pitch
 	assert count == self.subPixels * self.subPixels
-	return colour / count
+	return old_div(colour, count)
 
 class Jitter2(object):
     def __init__(self, eyepoint, rayfunc, subPixels=4):
@@ -73,7 +77,7 @@ class Jitter2(object):
 	colour = Colour(0,0,0)
 	for i in range(self.subPixels):
 	    colour += self.rayfunc(Ray3(self.eye, (Point3(random.uniform(x,x2) ,random.uniform(y,y2),1) - self.eye)))
-	return colour / self.subPixels
+	return old_div(colour, self.subPixels)
 
 
 

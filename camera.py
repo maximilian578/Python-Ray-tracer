@@ -1,3 +1,7 @@
+from __future__ import division
+from builtins import range
+from builtins import object
+from past.utils import old_div
 import math
 from geom3 import *
 import Image
@@ -22,7 +26,7 @@ class Camera(object):
 	self.u = unit(cross(self.viewUp, self.n))
 	self.v = cross(self.n, self.u)
 	self.VPC = self.eyePoint - self.n
-	self.Wp = (2 * math.tan(math.radians(self.fov) / 2)) / self.size
+	self.Wp = old_div((2 * math.tan(old_div(math.radians(self.fov), 2))), self.size)
 
     def lookAt(self, point):
 	"""Set the point to look at"""
@@ -39,8 +43,8 @@ class Camera(object):
 	self.Update()
 
     def getPixelCenter(self, x, y):
-	x = x - self.size/2
-	y = y - self.size/2
+	x = x - old_div(self.size,2)
+	y = y - old_div(self.size,2)
 	return self.VPC + x * self.Wp * self.u + y * self.Wp * self.v
 
     def getRay(self, x, y):
@@ -53,7 +57,7 @@ class Camera(object):
         return hit
 
     def pixelColour(self, x, y, samples=1):
-	pitch = .5 / samples
+	pitch = old_div(.5, samples)
 	colour = Colour(0,0,0)
 	count = 0
 	for subX in range(samples):
@@ -67,7 +71,7 @@ class Camera(object):
 	    #colour = colour + Colour(depth, depth, depth)
 
 	self.pixels[samples] += 1 
-        return colour / count
+        return old_div(colour, count)
 
     def aa(self, x, y):
 	"""Detect if the pixel x,y is at an edge, then anti-alais it"""

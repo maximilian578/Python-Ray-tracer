@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import print_function
 # The Colour class, a class to represent an RGB colour
 # supporting addition and multiplication operations.
 # Subtraction and division aren't currently supported.
@@ -6,6 +8,9 @@
 # @version June 2009.
 
 
+from builtins import str
+from builtins import object
+from past.utils import old_div
 def toInt(floatVal):
     """Support function: convert a colour component in the range 0 - 1
     to the range 0 .. 255."""
@@ -50,7 +55,7 @@ class Colour(object):
 
     def __div__(self, other):
 	"""Division operator for colours. Divides a colour by a scaler"""
-	return Colour(self.r / other, self.g / other, self.b / other)
+	return Colour(old_div(self.r, other), old_div(self.g, other), old_div(self.b, other))
 
 
     def intColour(self):
@@ -73,12 +78,12 @@ class Colour(object):
 
 if __name__ == "__main__":
     colourA = Colour(0.5, 0.2, 0.5)
-    print "colourA:", str(colourA)
+    print("colourA:", str(colourA))
     colourB = 0.5 * colourA
-    print "colourB:", str(colourB)
+    print("colourB:", str(colourB))
     reflectance = Colour(1, 0.5, 0.2)
-    print "reflectance:", str(reflectance)
-    print "colourB * reflectance", reflectance * colourB
+    print("reflectance:", str(reflectance))
+    print("colourB * reflectance", reflectance * colourB)
     colourA += colourB
-    print "After adding in colourB, colourA is: ", str(colourA)
-    print "In (0..255) ints, colour A is:", colourA.intColour()
+    print("After adding in colourB, colourA is: ", str(colourA))
+    print("In (0..255) ints, colour A is:", colourA.intColour())

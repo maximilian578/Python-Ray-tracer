@@ -1,3 +1,6 @@
+from __future__ import print_function
+from builtins import str
+from builtins import object
 from geom3 import Ray3, dot, unit 
 from colour import Colour
 
@@ -94,7 +97,7 @@ class Hit(object):
 		ret.entry = other.exit
 		ret.mat = other.mat
 		if other.normal2 is None:
-		    print other
+		    print(other)
 		ret.normal = -other.normal2
 		ret.texCords = other.texCords
 	return ret
@@ -117,7 +120,7 @@ class Hit(object):
 	    dir = self.ray.dir
 	    norm = self.normal
 	    if norm is None:
-		print self.obj, self.entry, self.exit
+		print(self.obj, self.entry, self.exit)
 	    Rdir = -2 * dir.dot(norm) * norm + dir
 	    ray = Ray3(self.ray.pos(self.entry) + Rdir * 0.0000001, Rdir)
 	    self.reflection = scene.intersect(ray)

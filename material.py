@@ -1,3 +1,4 @@
+from builtins import object
 from geom3 import dot, unit
 from colour import Colour
 
@@ -30,7 +31,7 @@ class Material(object):
 	
 	colour = ambientLight * diffcol
 	
-	for light in filter(lambda x: x != None, lights) :
+	for light in [x for x in lights if x != None] :
 	    if self.shininess:
 	        H = unit(light.vector + viewVector)
 	        colour += (max(0, normal.dot(light.vector)) * diffcol + 

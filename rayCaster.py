@@ -1,10 +1,17 @@
 #!/usr/bin/python
+from __future__ import division
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import range
+from builtins import object
+from past.utils import old_div
 import cProfile
 from antiAlaising import *
 import Image
 import sys
 import time
-from Tkinter import Tk, Canvas, PhotoImage
+from tkinter import Tk, Canvas, PhotoImage
 from camera import Camera
 
 sys.path.insert(0,"scenes/")
@@ -20,7 +27,7 @@ class rayCaster(object):
         self.root.title("Ray Tracer")
         canvas = Canvas(self.root, width=WIN_SIZE , height=WIN_SIZE )
         self.image = PhotoImage(master=self.root, width=WIN_SIZE, height=WIN_SIZE)
-        imageCentre = (WIN_SIZE / 2 + 2, WIN_SIZE / 2 + 2)
+        imageCentre = (old_div(WIN_SIZE, 2) + 2, old_div(WIN_SIZE, 2) + 2)
         canvas.create_image(imageCentre, image = self.image)
         canvas.pack()
 
@@ -45,8 +52,8 @@ class rayCaster(object):
         camera = definition.camera
         camera.img = Image.new("RGB", (camera.size, camera.size))
 
-        print "ScottTracer"
-        print "\tTracing Rays...   0%",
+        print("ScottTracer")
+        print("\tTracing Rays...   0%", end=' ')
         sys.stdout.flush()
 
         count = 0
@@ -64,12 +71,12 @@ class rayCaster(object):
             percentage = (count / max * 100)
             self.putImageRow(row, ROW)
             if percentage - lastPercentage > .9:
-                print "\b\b\b\b\b\b%4.0f%%" % percentage,
+                print("\b\b\b\b\b\b%4.0f%%" % percentage, end=' ')
                 sys.stdout.flush()
                 lastPercentage = percentage
-        print "\b\b\b\b\b\b Done (%f sec)" % (time.clock() - t0)
+        print("\b\b\b\b\b\b Done (%f sec)" % (time.clock() - t0))
 
-        print "\tAnti-alasing...   0%",
+        print("\tAnti-alasing...   0%", end=' ')
         sys.stdout.flush()
         t0 = time.clock()
         count = 0
@@ -86,12 +93,12 @@ class rayCaster(object):
             percentage = (count / max * 100)
             self.putImageRow(row, ROW)
             if percentage - lastPercentage > .9:
-                print "\b\b\b\b\b\b%4.0f%%" % percentage,
+                print("\b\b\b\b\b\b%4.0f%%" % percentage, end=' ')
                 sys.stdout.flush()
                 lastPercentage = percentage
-        print "\b\b\b\b\b\b (%f sec)" % (time.clock() - t0)
+        print("\b\b\b\b\b\b (%f sec)" % (time.clock() - t0))
 
-        print camera.pixels
+        print(camera.pixels)
 
         camera.img.save(sys.argv[1] + ".png")  # Display image in default image-viewer application
 

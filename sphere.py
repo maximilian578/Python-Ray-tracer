@@ -5,6 +5,8 @@
    sphere and a normal method that returns the
    surface at a given point on the sphere surface."""
 
+from builtins import str
+from builtins import object
 from geom3 import Vector3, Point3, Ray3, dot, unit
 from math import sqrt
 from hit import Hit

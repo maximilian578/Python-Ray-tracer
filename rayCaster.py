@@ -8,7 +8,7 @@ from builtins import object
 from past.utils import old_div
 import cProfile
 from antiAlaising import *
-import Image
+from PIL import Image
 import sys
 import time
 from tkinter import Tk, Canvas, PhotoImage

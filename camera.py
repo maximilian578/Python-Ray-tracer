@@ -4,7 +4,7 @@ from builtins import object
 from past.utils import old_div
 import math
 from geom3 import *
-import Image
+from PIL import Image
 from colour import Colour
 
 

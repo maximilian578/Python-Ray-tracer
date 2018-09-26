@@ -13,9 +13,10 @@ from geom3 import Vector3, Point3, Ray3, dot, unit
 from math import sqrt
 from hit import Hit
 
+
 class Plane(object):
     """A ray-traceable plane"""
-    
+
     def __init__(self, point, normal, material):
         """Create a plane through a given point with given normal
         and surface material"""
@@ -26,32 +27,27 @@ class Plane(object):
     def intersect(self, ray):
         """Returns a hit, or None if the ray is parallel to the plane"""
 
-	t = None
-	hit = None
-	angle = ray.dir.dot(self.norm)
-	if angle != 0:
-	    t = old_div((self.point - ray.start).dot(self.norm),angle)
-	    if angle < 0:
-	        hit = Hit(self, ray, t, (), self.norm, self.mat)
-	    else :
-	        hit = Hit(self, ray, None, t, self.norm, self.mat)
-	else:
-	    vector = unit(ray.start - self.point)
-	    if vector.dot(self.norm) < 0:
-	    	hit = Hit(self, ray, None, (), self.norm, self.mat)
-	    else:
-	    	return None
-	if self.mat.texture and hit.entry > 0:
-	    hit.texCords = self.texCords(ray.pos(t))
-	return hit
-
+        t = None
+        hit = None
+        angle = ray.dir.dot(self.norm)
+        if angle != 0:
+            t = old_div((self.point - ray.start).dot(self.norm), angle)
+            if angle < 0:
+                hit = Hit(self, ray, t, (), self.norm, self.mat)
+            else:
+                hit = Hit(self, ray, None, t, self.norm, self.mat)
+        else:
+            vector = unit(ray.start - self.point)
+            if vector.dot(self.norm) < 0:
+                hit = Hit(self, ray, None, (), self.norm, self.mat)
+            else:
+                return None
+        if self.mat.texture and hit.entry > 0:
+            hit.texCords = self.texCords(ray.pos(t))
+        return hit
 
     def texCords(self, point):
-    	vect = point - self.point
-	u = vect.dx
-	v = vect.dz
-	return (u, v)
-    	
-
-    
-
+        vect = point - self.point
+        u = vect.dx
+        v = vect.dz
+        return (u, v)

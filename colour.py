@@ -11,11 +11,12 @@ from __future__ import print_function
 from builtins import str
 from builtins import object
 from past.utils import old_div
+
+
 def toInt(floatVal):
     """Support function: convert a colour component in the range 0 - 1
     to the range 0 .. 255."""
     return max(0, min(255, int(256.0 * floatVal)))
-
 
 
 class Colour(object):
@@ -30,21 +31,17 @@ class Colour(object):
         self.g = g
         self.b = b
 
-
     def __mul__(self, other):
         """Multiplication operator for colour * colour"""
         return Colour(self.r * other.r, self.g * other.g, self.b * other.b)
-
 
     def __rmul__(self, factor):
         """Reverse multiplication operator supports scalar * colour"""
         return Colour(factor * self.r, factor * self.g, factor * self.b)
 
-
     def __add__(self, other):
         """Plus operator for two colours"""
         return Colour(self.r + other.r, self.g + other.g, self.b + other.b)
-
 
     def __iadd__(self, other):
         """+= operator for two colours. Componentwise addition to self."""
@@ -54,27 +51,29 @@ class Colour(object):
         return self
 
     def __div__(self, other):
-	"""Division operator for colours. Divides a colour by a scaler"""
-	return Colour(old_div(self.r, other), old_div(self.g, other), old_div(self.b, other))
-
+        """Division operator for colours. Divides a colour by a scaler"""
+        return Colour(
+            old_div(
+                self.r, other), old_div(
+                self.g, other), old_div(
+                self.b, other))
 
     def intColour(self):
         """Return an RGB triple of self's RGB components, each multiplied
         by 256 and clamped to the range 0..255"""
         return (toInt(self.r), toInt(self.g), toInt(self.b))
- 
 
     def __str__(self):
         """Implementation of the str function"""
         return "(%.2f,%.2f,%.2f)" % (self.r, self.g, self.b)
 
-
     def __repr__(self):
         """The string representation (e.g. for serialisation) of self"""
-        return "Colour(%f,%f,%f)"  % (self.r, self.g, self.b)
+        return "Colour(%f,%f,%f)" % (self.r, self.g, self.b)
 
 
-# Demo code to run if this file is run directly rather than just being imported.
+# Demo code to run if this file is run directly rather than just being
+# imported.
 
 if __name__ == "__main__":
     colourA = Colour(0.5, 0.2, 0.5)

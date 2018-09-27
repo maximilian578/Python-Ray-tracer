@@ -52,11 +52,7 @@ class Colour(object):
 
     def __truediv__(self, other):
         """Division operator for colours. Divides a colour by a scaler"""
-        return Colour(
-            old_div(
-                self.r, other), old_div(
-                self.g, other), old_div(
-                self.b, other))
+        return Colour(self.r / other, self.g / other, self.b / other)
 
     def intColour(self):
         """Return an RGB triple of self's RGB components, each multiplied

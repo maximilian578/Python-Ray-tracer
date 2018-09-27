@@ -31,7 +31,7 @@ class rayCaster(object):
             master=self.root,
             width=WIN_SIZE,
             height=WIN_SIZE)
-        imageCentre = (old_div(WIN_SIZE, 2) + 2, old_div(WIN_SIZE, 2) + 2)
+        imageCentre = (WIN_SIZE // 2 + 2, WIN_SIZE // 2 + 2)
         canvas.create_image(imageCentre, image=self.image)
         canvas.pack()
 

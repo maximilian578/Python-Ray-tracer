@@ -8,11 +8,10 @@
 from __future__ import division
 
 from builtins import object
-from past.utils import old_div
 from geom3 import Vector3, Point3, Ray3, dot, unit
 from math import sqrt
 from hit import Hit
-import helpers
+from helpers import isninf
 
 
 class Plane(object):
@@ -32,7 +31,7 @@ class Plane(object):
         hit = None
         angle = ray.dir.dot(self.norm)
         if angle != 0:
-            t = old_div((self.point - ray.start).dot(self.norm), angle)
+            t = (self.point - ray.start).dot(self.norm) / angle
             if angle < 0:
                 hit = Hit(self, ray, t, float('inf'), self.norm, self.mat)
             else:
@@ -43,7 +42,7 @@ class Plane(object):
                 hit = Hit(self, ray, float('-inf'), float('inf'), self.norm, self.mat)
             else:
                 return None
-        if (self.mat.texture is not None and not helpers.isninf(hit.entry)) > 0:
+        if (self.mat.texture is not None and not isninf(hit.entry)) > 0:
             hit.texCords = self.texCords(ray.pos(t))
         return hit
 

@@ -133,7 +133,7 @@ class Vector3(object):
 
     def __truediv__(self, scale):
         """Division of a vector by a float r is scaling by (1/r)"""
-        return self.__mul__(old_div(1.0, scale))
+        return self.__mul__(1.0 / scale)
 
     def __neg__(self):
         """Negation of a vector is negation of all its coordinates"""
@@ -254,7 +254,7 @@ def length(v):
 
 def unit(v):
     """A unit vector in the direction of v"""
-    return old_div(v, length(v))
+    return v / length(v)
 
 
 # ================================================================

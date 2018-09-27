@@ -9,9 +9,6 @@ __pycache__/
 # 2to3 backups
 *.bak
 
-# PyCharm
-.idea/
-
 # C extensions
 *.so
 
@@ -60,6 +57,9 @@ coverage.xml
 # Translations
 *.mo
 *.pot
+
+# PyCharm stuff:
+.idea
 
 # Django stuff:
 *.log

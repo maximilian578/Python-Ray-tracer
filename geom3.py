@@ -6,7 +6,6 @@ from __future__ import print_function
 
 from builtins import str
 from builtins import range
-from past.utils import old_div
 from builtins import object
 from math import sqrt
 
@@ -170,7 +169,7 @@ class Vector3(object):
 
     def norm(self):
         """A normalised version of self"""
-        return old_div(self, length(self))
+        return self / length(self)
 
     def __str__(self):
         """Minimal string representation in parentheses"""
@@ -275,7 +274,7 @@ if __name__ == '__main__':
     assert v1 - v2 == Vector3(-2, 0, 2)
     assert v1 * 3 == Vector3(3, 6, 9)
     assert 3 * v1 == Vector3(3, 6, 9)
-    assert old_div(v1, 2.0) == Vector3(0.5, 1, 1.5)
+    assert v1 / 2.0 == Vector3(0.5, 1, 1.5)
     assert -v1 == Vector3(-1, -2, -3)
     assert v1[0] == 1 and v1[1] == 2 and v1[2] == 3
     assert list(v1) == [1, 2, 3]

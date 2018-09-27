@@ -6,6 +6,7 @@ the object hit, in a pair. Written for COSC363.
 
 from builtins import object
 from hit import BlankHit
+import helpers
 
 
 class Scene(object):
@@ -26,7 +27,7 @@ class Scene(object):
         for o in self.objs:
             hit = o.intersect(ray)
             # hit.entry can be None when hit is not None
-            if hit and hit.entry and (hit.entry > 0):
+            if hit and not helpers.isninf(hit.entry) and (hit.entry > 0):
                 if minHit is None or hit < minHit:
                     minHit = hit
         return minHit

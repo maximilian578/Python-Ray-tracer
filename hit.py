@@ -3,7 +3,7 @@ from builtins import str
 from builtins import object
 from geom3 import Ray3, dot, unit
 from colour import Colour
-import math
+import helpers
 
 class BlankHit(object):
     """Null hit"""
@@ -70,23 +70,13 @@ class Hit(object):
         ret = self
         if other is None:
             return None  # fixme: Is this the best option?
-
-        if other.entry is None:
-            other.entry = float('-inf')
-        if other.exit is None:
-            other.exit = float('-inf')
-        if self.entry is None:
-            self.entry = float('-inf')
-        if self.exit is None:
-            self.exit = float('-inf')
-
         if other.entry > self.entry:
             ret.entry = other.entry
             ret.mat = other.mat
             ret.normal = other.normal
             ret.texCords = other.texCords
-        if not math.isinf(other.exit):
-            if not math.isinf(self.exit):
+        if not helpers.isninf(other.exit):
+            if not helpers.isninf(self.exit):
                 if self.exit > other.exit:
                     ret.exit = other.exit
                     ret.normal2 = other.normal2
@@ -115,7 +105,7 @@ class Hit(object):
         ret = self
         if other is None:
             return ret
-        if other.exit and not math.isinf(other.exit):
+        if other.exit and not helpers.isninf(other.exit):
             if other.exit > self.entry and other.entry < self.entry:
                 ret.entry = other.exit
                 ret.mat = other.mat
@@ -127,8 +117,8 @@ class Hit(object):
 
     def miss(self):
         return (
-            self.exit < 0 and not math.isinf(self.exit)) or (
-             not math.isinf(self.exit) and not math.isinf(self.entry) and (
+            self.exit < 0 and not helpers.isninf(self.exit)) or (
+             not helpers.isninf(self.exit) and not helpers.isninf(self.entry) and (
                 self.entry - self.exit) > 0.00000001)
 
     def calcLights(self, scene):

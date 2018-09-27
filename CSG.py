@@ -8,7 +8,7 @@ class Intersection(object):
         self.objs = objects
 
     def intersect(self, ray):
-        hit = Hit(self, ray, None, None)
+        hit = Hit(self, ray, float('-inf'), float('-inf'))
         for o in self.objs:
             hit = hit.intersection(o.intersect(ray))
             if hit is None or hit.miss():
@@ -24,7 +24,7 @@ class Union(object):
         self.objs = objects
 
     def intersect(self, ray):
-        hit = Hit(self, ray, None, None)
+        hit = Hit(self, ray, float('-inf'), float('-inf'))
         for o in self.objs:
             hit = hit.union(o.intersect(ray))
         if hit.entry < hit.exit:

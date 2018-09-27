@@ -12,6 +12,7 @@ from past.utils import old_div
 from geom3 import Vector3, Point3, Ray3, dot, unit
 from math import sqrt
 from hit import Hit
+import helpers
 
 
 class Plane(object):
@@ -35,14 +36,14 @@ class Plane(object):
             if angle < 0:
                 hit = Hit(self, ray, t, float('inf'), self.norm, self.mat)
             else:
-                hit = Hit(self, ray, None, t, self.norm, self.mat)
+                hit = Hit(self, ray, float('-inf'), t, self.norm, self.mat)
         else:
             vector = unit(ray.start - self.point)
             if vector.dot(self.norm) < 0:
-                hit = Hit(self, ray, None, float('inf'), self.norm, self.mat)
+                hit = Hit(self, ray, float('-inf'), float('inf'), self.norm, self.mat)
             else:
                 return None
-        if (self.mat.texture is not None and hit.entry is not None) > 0:
+        if (self.mat.texture is not None and not helpers.isninf(hit.entry)) > 0:
             hit.texCords = self.texCords(ray.pos(t))
         return hit
 

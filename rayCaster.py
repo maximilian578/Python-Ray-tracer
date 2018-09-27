@@ -19,7 +19,12 @@ sys.path.insert(0, "scenes/")
 definition = __import__(sys.argv[1])
 #definition = __import__("basic")
 
-WIN_SIZE = definition.camera.size
+if sys.argv.__len__() < 3:
+    WIN_SIZE = definition.camera.size
+else:
+    WIN_SIZE = int(sys.argv[2])
+    definition.camera.size = WIN_SIZE
+    definition.camera.Update()
 
 
 class rayCaster(object):

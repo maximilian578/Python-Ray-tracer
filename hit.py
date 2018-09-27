@@ -3,15 +3,15 @@ from builtins import str
 from builtins import object
 from geom3 import Ray3, dot, unit
 from colour import Colour
-
+import math
 
 class BlankHit(object):
     """Null hit"""
 
     def __init__(self, colour):
         self.mycolour = colour
-        self.entry = ()  # () is positive infinity (oppisit of None)
-        self.exit = ()
+        self.entry = float("inf")  # () is positive infinity (oppisit of None)
+        self.exit = float("inf")
 
     def colour(self):
         return self.mycolour
@@ -70,13 +70,23 @@ class Hit(object):
         ret = self
         if other is None:
             return None  # fixme: Is this the best option?
+
+        if other.entry is None:
+            other.entry = float('-inf')
+        if other.exit is None:
+            other.exit = float('-inf')
+        if self.entry is None:
+            self.entry = float('-inf')
+        if self.exit is None:
+            self.exit = float('-inf')
+
         if other.entry > self.entry:
             ret.entry = other.entry
             ret.mat = other.mat
             ret.normal = other.normal
             ret.texCords = other.texCords
-        if other.exit:
-            if self.exit:
+        if not math.isinf(other.exit):
+            if not math.isinf(self.exit):
                 if self.exit > other.exit:
                     ret.exit = other.exit
                     ret.normal2 = other.normal2
@@ -105,7 +115,7 @@ class Hit(object):
         ret = self
         if other is None:
             return ret
-        if other.exit:
+        if other.exit and not math.isinf(other.exit):
             if other.exit > self.entry and other.entry < self.entry:
                 ret.entry = other.exit
                 ret.mat = other.mat
@@ -117,8 +127,8 @@ class Hit(object):
 
     def miss(self):
         return (
-            self.exit < 0 and self.exit is not None) or (
-            self.exit is not None and self.entry is not None and (
+            self.exit < 0 and not math.isinf(self.exit)) or (
+             not math.isinf(self.exit) and not math.isinf(self.entry) and (
                 self.entry - self.exit) > 0.00000001)
 
     def calcLights(self, scene):

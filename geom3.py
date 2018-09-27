@@ -131,7 +131,7 @@ class Vector3(object):
         """r * v for r a float is scaling of vector v by r"""
         return self.__mul__(scale)
 
-    def __div__(self, scale):
+    def __truediv__(self, scale):
         """Division of a vector by a float r is scaling by (1/r)"""
         return self.__mul__(old_div(1.0, scale))
 

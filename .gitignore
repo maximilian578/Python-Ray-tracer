@@ -9,6 +9,9 @@ __pycache__/
 # 2to3 backups
 *.bak
 
+# PyCharm
+.idea/
+
 # C extensions
 *.so
 

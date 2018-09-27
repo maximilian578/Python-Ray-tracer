@@ -50,7 +50,7 @@ class Colour(object):
         self.b += other.b
         return self
 
-    def __div__(self, other):
+    def __truediv__(self, other):
         """Division operator for colours. Divides a colour by a scaler"""
         return Colour(
             old_div(

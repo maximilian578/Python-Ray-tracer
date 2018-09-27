@@ -25,7 +25,8 @@ class Scene(object):
         minHit = BlankHit(self.background)
         for o in self.objs:
             hit = o.intersect(ray)
-            if hit and (hit.entry > 0):
+            # hit.entry can be None when hit is not None
+            if hit and hit.entry and (hit.entry > 0):
                 if minHit is None or hit < minHit:
                     minHit = hit
         return minHit

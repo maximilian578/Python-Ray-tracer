@@ -33,16 +33,16 @@ class Plane(object):
         if angle != 0:
             t = old_div((self.point - ray.start).dot(self.norm), angle)
             if angle < 0:
-                hit = Hit(self, ray, t, (), self.norm, self.mat)
+                hit = Hit(self, ray, t, float('inf'), self.norm, self.mat)
             else:
                 hit = Hit(self, ray, None, t, self.norm, self.mat)
         else:
             vector = unit(ray.start - self.point)
             if vector.dot(self.norm) < 0:
-                hit = Hit(self, ray, None, (), self.norm, self.mat)
+                hit = Hit(self, ray, None, float('inf'), self.norm, self.mat)
             else:
                 return None
-        if self.mat.texture and hit.entry > 0:
+        if (self.mat.texture is not None and hit.entry is not None) > 0:
             hit.texCords = self.texCords(ray.pos(t))
         return hit
 

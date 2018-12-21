@@ -66,7 +66,7 @@ class rayCaster(object):
         sys.stdout.flush()
 
         count = 0
-        t0 = time.clock()
+        t0 = time.perf_counter()
         max = float(WIN_SIZE**2)
         lastPercentage = 0
         for row in range(WIN_SIZE):
@@ -83,11 +83,11 @@ class rayCaster(object):
                 print("\b\b\b\b\b\b%4.0f%%" % percentage, end=' ')
                 sys.stdout.flush()
                 lastPercentage = percentage
-        print("\b\b\b\b\b\b Done (%f sec)" % (time.clock() - t0))
+        print("\b\b\b\b\b\b Done (%f sec)" % (time.perf_counter() - t0))
 
         print("\tAnti-alasing...   0%", end=' ')
         sys.stdout.flush()
-        t0 = time.clock()
+        t0 = time.perf_counter()
         count = 0
         lastPercentage = 0
         for row in range(WIN_SIZE):
@@ -105,7 +105,7 @@ class rayCaster(object):
                 print("\b\b\b\b\b\b%4.0f%%" % percentage, end=' ')
                 sys.stdout.flush()
                 lastPercentage = percentage
-        print("\b\b\b\b\b\b (%f sec)" % (time.clock() - t0))
+        print("\b\b\b\b\b\b (%f sec)" % (time.perf_counter() - t0))
 
         print(camera.pixels)
 
